@@ -1,5 +1,90 @@
 # AWS 認定クラウドプラクティショナー
 
+- [AWS 認定クラウドプラクティショナー](#aws-認定クラウドプラクティショナー)
+	- [AWSのセキュリティ](#awsのセキュリティ)
+		- [IAM](#iam)
+			- [IAMユーザーグループ](#iamユーザーグループ)
+			- [IAMロール](#iamロール)
+		- [セキュリティグループ](#セキュリティグループ)
+		- [AWS Shield](#aws-shield)
+		- [AWS WAF](#aws-waf)
+		- [inspector](#inspector)
+		- [AWS Artifact](#aws-artifact)
+		- [AWS Key Management Service(KMS)](#aws-key-management-servicekms)
+	- [AWSのテクノロジー](#awsのテクノロジー)
+	- [AWSのコンピューティングサービス](#awsのコンピューティングサービス)
+		- [ECS](#ecs)
+		- [Lightstail](#lightstail)
+		- [Batch](#batch)
+		- [EC2](#ec2)
+			- [EC2のインスタンス](#ec2のインスタンス)
+		- [ELB](#elb)
+			- [スティッキーセッション](#スティッキーセッション)
+		- [Auto Scaling](#auto-scaling)
+		- [Lambda](#lambda)
+	- [AWSのストレージサービス](#awsのストレージサービス)
+		- [ストレージの種類](#ストレージの種類)
+		- [EFS](#efs)
+		- [Storage Gateway](#storage-gateway)
+		- [EBS](#ebs)
+		- [S3](#s3)
+			- [S3のセキュリティ](#s3のセキュリティ)
+			- [S3の料金](#s3の料金)
+			- [S3のタイプ](#s3のタイプ)
+		- [Snowball](#snowball)
+		- [AWS Snowball Edge](#aws-snowball-edge)
+	- [ネットワークサービス](#ネットワークサービス)
+		- [VPC](#vpc)
+		- [サブネット](#サブネット)
+	- [インターネットゲートウェイ](#インターネットゲートウェイ)
+		- [インターネットゲートウェイの目的](#インターネットゲートウェイの目的)
+		- [ルートテーブル](#ルートテーブル)
+		- [ネットワークACL](#ネットワークacl)
+		- [外部からEC2インスタンスにアクセスするには](#外部からec2インスタンスにアクセスするには)
+		- [ハイブリッド構成環境](#ハイブリッド構成環境)
+		- [CloudFront](#cloudfront)
+	- [データベースサービス](#データベースサービス)
+		- [RDS](#rds)
+		- [DynamoDB](#dynamodb)
+	- [管理サービス](#管理サービス)
+		- [Cloudwatch](#cloudwatch)
+		- [Trusted Advisor](#trusted-advisor)
+	- [料金と請求](#料金と請求)
+		- [Amazon S3 Transfer Acceleration](#amazon-s3-transfer-acceleration)
+	- [AWS Database Migration Service （DMS）](#aws-database-migration-service-dms)
+	- [AWS Application Discovery Service](#aws-application-discovery-service)
+	- [AWS CloudTrail](#aws-cloudtrail)
+	- [Amazon SNS](#amazon-sns)
+	- [Amazon SES](#amazon-ses)
+	- [Amazon SQS](#amazon-sqs)
+	- [Amazon MQ](#amazon-mq)
+	- [Amazon RDS](#amazon-rds)
+	- [Amazon Aurora](#amazon-aurora)
+	- [Amazon DynamoDB](#amazon-dynamodb)
+	- [Amazon Redshift](#amazon-redshift)
+	- [Amazon EMR](#amazon-emr)
+	- [AWS Organizations](#aws-organizations)
+	- [メモ](#メモ)
+		- [覚えておくべき移行関連のAWSサービス](#覚えておくべき移行関連のawsサービス)
+		- [比較](#比較)
+		- [AWSでセキュリティを向上させる](#awsでセキュリティを向上させる)
+		- [AWSの可用性について](#awsの可用性について)
+		- [ACLとセキュリティグループの違い](#aclとセキュリティグループの違い)
+		- [AWSのモニタリング系サービス](#awsのモニタリング系サービス)
+		- [AWS SDK](#aws-sdk)
+		- [AWS プロフェッショナルサービス](#aws-プロフェッショナルサービス)
+		- [Route53](#route53)
+		- [AWS OpsWorks](#aws-opsworks)
+		- [AWS Elastic Beanstalk](#aws-elastic-beanstalk)
+		- [AWS CloudFormation](#aws-cloudformation)
+		- [Elasticache](#elasticache)
+		- [コード関連のサービス](#コード関連のサービス)
+		- [Amazon Neptune](#amazon-neptune)
+		- [AWS Security Token Service (AWS STS)](#aws-security-token-service-aws-sts)
+		- [Amazon Cognito](#amazon-cognito)
+		- [Amazon Elastic Container Registry (ECR)](#amazon-elastic-container-registry-ecr)
+
+
 ## AWSのセキュリティ
 
 - AWSはクラウド本体のセキュリティ部分を担当し、ユーザーはクラウド内のセキュリティを担当する。（クラウドセキュリティ責任分担モデル）
@@ -115,6 +200,10 @@
 - ELB自体が高可用性のマネージドサービスなので、単一障害点とならない
 - 複数のAZに負荷分散を実行できるのでリソース負荷が均等になる。
 
+#### スティッキーセッション
+
+- ELBがサーバにリクエスト振り分ける際、特定のCookieを確認することで、特定のクライアントからのリクエストを特定のサーバに紐付けることが出来る機能
+
 ### Auto Scaling
 
 - Auto ScalingによってEC2インスタンスを必要な時に自動で増減できる
@@ -138,7 +227,23 @@
 - AWSサービスの処理を簡単に自動化できる
 - AWSサービスからのトリガーを使用することで、イベントからlambdaを実行できる。
 
-## ストレージサービス
+## AWSのストレージサービス
+
+### ストレージの種類
+
+1. ブロックストレージ
+    - EC2にアタッチ
+    - ブロック形式でデータを保存
+    - 高速、高帯域幅
+    - 例:EBS、インスタンスストア
+2. オブジェクトストレージ
+    - 例:S3,Glacier
+    - オブジェクト形式でデータを保存
+    - 安価かつ高耐久
+3. ファイルストレージ
+    - ファイル形式でデータを保存
+    - 複数のEC2から同時にアタッチ可能
+    - 例:EFS
 
 ### EFS
 
@@ -148,16 +253,6 @@
 
 - オンプレアプリケーションとAWSのストレージをシームレスに接続。
 - バックアップ、アーカイブ災害復旧、移行に使用
-
-### Snowball
-
-- 物理デバイスを利用して大容量のデータ転送ができる。
-- エクサバイト級のデータ転送にはSnowmobileを使用する。
-
-### AWS Snowball Edge
-
-- AWSクラウドへの安全な大量データの転送を可能にするサービスです。
-- セキュリティに考慮して設計されたデバイスを使用するペタバイト規模のデータ転送ソリューションで、AWS クラウド内外に大容量データを転送可能。
 
 ### EBS
 
@@ -216,19 +311,38 @@
 - Amazon Glacier DEEP Archive
   - 最安のストレージ
 
+### Snowball
+
+- 物理デバイスを利用して大容量のデータ転送ができる。
+- エクサバイト級のデータ転送にはSnowmobileを使用する。
+
+### AWS Snowball Edge
+
+- AWSクラウドへの安全な大量データの転送を可能にするサービスです。
+- セキュリティに考慮して設計されたデバイスを使用するペタバイト規模のデータ転送ソリューションで、AWS クラウド内外に大容量データを転送可能。
+
+---
+
 ## ネットワークサービス
 
 ### VPC
 
 ### サブネット
 
-### インターネットゲートウェイ
+## インターネットゲートウェイ
+
+- VPC のインスタンスとインターネットとの間の通信を可能にする VPC コンポーネントです。VPCに設定することにより、インターネットとのアクセスを可能にする。
+
+### インターネットゲートウェイの目的
+
+1. インターネットでルーティング可能なトラフィックの送信先を VPC のルートテーブルに追加する。
+2. パブリック IPv4 アドレスが割り当てられているインスタンスに対してネットワークアドレス変換 (NAT) を行う。
 
 ### ルートテーブル
 
-### セキュリティグループ
-
 ### ネットワークACL
+
+- 1 つ以上のサブネットのインバウンドトラフィックとアウトバウンドトラフィックを制御するファイアウォールとして動作する、VPC 用のセキュリティのオプションレイヤー
 
 ### 外部からEC2インスタンスにアクセスするには
 
@@ -260,8 +374,7 @@
 
 ## AWS Database Migration Service （DMS）
 
-
-## AWS Application Discovery Service 
+## AWS Application Discovery Service
 
 - オンプレミスデータセンターに関する情報を収集することにより、移行プロジェクト計画を支援しています。
 
@@ -285,15 +398,6 @@
 - aws上でキューイング、タスク並列分散を使用するときに使用する。
 
 ## Amazon MQ
-
-## インターネットゲートウェイ
-
-- VPC のインスタンスとインターネットとの間の通信を可能にする VPC コンポーネントです。VPCに設定することにより、インターネットとのアクセスを可能にする。
-
-### インターネットゲートウェイの目的
-
-1. インターネットでルーティング可能なトラフィックの送信先を VPC のルートテーブルに追加する。
-2. パブリック IPv4 アドレスが割り当てられているインスタンスに対してネットワークアドレス変換 (NAT) を行う。
 
 ## Amazon RDS
 
@@ -331,7 +435,7 @@
 2. AWS Database Migration Service
     - DBを短時間で安全にAWSに移行する
 3. AWS Server Migration Service
-    - オンプレミスワークロードを従来よりも簡単かつ短時間でAWSに移行する 
+    - オンプレミスワークロードを従来よりも簡単かつ短時間でAWSに移行する
 4. AWS Schema Convertion TOOL
     - ソースデータベーススキーマ、ビュー、ストアドを自動的にターゲットデータベース互換フォーマットに変換する。
 
@@ -344,30 +448,6 @@
 3. Amazon SQS
     - キューイング処理。ポーリング・PULL型の処理、並列分散処理
 
-### スティッキーセッション
-
-- ELBがサーバにリクエスト振り分ける際、特定のCookieを確認することで、特定のクライアントからのリクエストを特定のサーバに紐付けることが出来る機能
-
-### ネットワークACL
-
-- 1 つ以上のサブネットのインバウンドトラフィックとアウトバウンドトラフィックを制御するファイアウォールとして動作する、VPC 用のセキュリティのオプションレイヤー
-
-### ストレージ
-
-1. ブロックストレージ
-    - EC2にアタッチ
-    - ブロック形式でデータを保存
-    - 高速、高帯域幅
-    - 例:EBS、インスタンスストア
-2. オブジェクトストレージ
-    - 例:S3,Glacier
-    - オブジェクト形式でデータを保存
-    - 安価かつ高耐久
-3. ファイルストレージ
-    - ファイル形式でデータを保存
-    - 複数のEC2から同時にアタッチ可能
-    - 例:EFS
-
 ### AWSでセキュリティを向上させる
 
 - 多要素認証（MFA）を設定して AWS リソースを保護することが推奨
@@ -379,7 +459,7 @@
 - マルチリージョン展開によって、ホットスタンバイやウォームスタンバイ構成をとることで、地震などの大きな災害でリージョンが停止するなどのリスクに対処できるようになる。
 - インスタンスなどにオートスケーリングを実行することで、可用性を固めることは可能ですが、９９％以上のような高い稼働率を達成するのには不十分。
 
-### ACLとセキュリティグループ
+### ACLとセキュリティグループの違い
 
 - ACL
   - VPC、サブネット単位で適用
