@@ -33,6 +33,7 @@
 			- [S3のセキュリティ](#s3のセキュリティ)
 			- [S3の料金](#s3の料金)
 			- [S3のタイプ](#s3のタイプ)
+			- [S3の特殊な機能](#s3の特殊な機能)
 		- [Snowball](#snowball)
 		- [AWS Snowball Edge](#aws-snowball-edge)
 	- [ネットワークサービス](#ネットワークサービス)
@@ -89,6 +90,8 @@
 		- [Amazon Elastic Container Registry (ECR)](#amazon-elastic-container-registry-ecr)
 		- [Amazon Kinesis](#amazon-kinesis)
 			- [Amazon Kinesis Data Streams](#amazon-kinesis-data-streams)
+			- [Amazon Kinesis Data Firehose](#amazon-kinesis-data-firehose)
+			- [Amazon Kinesis Data Analytics](#amazon-kinesis-data-analytics)
 			- [Kinesis クライアントライブラリ (KCL)](#kinesis-クライアントライブラリ-kcl)
 
 
@@ -349,6 +352,13 @@
 - Amazon Glacier DEEP Archive
   - 最安のストレージ
 
+#### S3の特殊な機能
+
+- Amazon S3 Transfer Acceleration
+- 事前署名付き URL
+- Cross-Origin Resource Sharing (CORS)
+  - 特定のドメインにロードされたクライアントウェブアプリケーションが異なるドメイン内のリソースと通信する方法を定義する。
+
 ### Snowball
 
 - 物理デバイスを利用して大容量のデータ転送ができる。
@@ -596,11 +606,24 @@
 
 - ストリームデータ処理に利用するサービス
 - 集計するデータ処理を実装することができる
+- Amazon Kinesis Data Firehoseよりも早い
+
+#### Amazon Kinesis Data Firehose
+
+- ストリームデータ処理に利用するサービス(ただし60秒ごとにまとめて処理される)
+- 集計するデータ処理を実装することができる
+- Amazon Kinesis Data Streamsよりも設定が楽
+
+#### Amazon Kinesis Data Analytics
+
+- コンピュータやAmazon Kinesis Data Streams、Amazon Kinesis Data Firehoseから送信されてくるデータをSQLを使って処理できるサービス。
+
 
 #### Kinesis クライアントライブラリ (KCL)
 
 - KDSデータストリームからデータを処理できるカスタムコンシューマアプリケーションを構築できる。
 - 分散コンピューティングに関連する複雑なタスクの多くを処理することで、Kinesis データストリームからデータを消費および処理するためのライブラリを提供します。
+
 
 
 
