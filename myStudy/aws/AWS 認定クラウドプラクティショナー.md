@@ -20,6 +20,7 @@
 			- [EC2のインスタンス](#ec2のインスタンス)
 			- [プレイスメントグループ](#プレイスメントグループ)
 			- [AutoScaling](#autoscaling)
+			- [Amazon Machine Image (AMI)](#amazon-machine-image-ami)
 		- [ELB](#elb)
 			- [スティッキーセッション](#スティッキーセッション)
 		- [Auto Scaling](#auto-scaling)
@@ -63,6 +64,7 @@
 	- [Amazon SQS](#amazon-sqs)
 	- [Amazon MQ](#amazon-mq)
 	- [Amazon RDS](#amazon-rds)
+		- [RDSプロキシ](#rdsプロキシ)
 	- [Amazon Aurora](#amazon-aurora)
 	- [Amazon DynamoDB](#amazon-dynamodb)
 	- [Amazon Redshift](#amazon-redshift)
@@ -93,6 +95,8 @@
 			- [Amazon Kinesis Data Firehose](#amazon-kinesis-data-firehose)
 			- [Amazon Kinesis Data Analytics](#amazon-kinesis-data-analytics)
 			- [Kinesis クライアントライブラリ (KCL)](#kinesis-クライアントライブラリ-kcl)
+		- [Amazon API Gateway](#amazon-api-gateway)
+		- [VPCエンドポイント](#vpcエンドポイント)
 
 
 ## AWSのセキュリティ
@@ -170,7 +174,7 @@
 
 ### Lightstail
 
-- AWS　が提供する仮想プライベートサーバー
+- AWSが提供する仮想プライベートサーバー
 
 ### Batch
 
@@ -196,6 +200,7 @@
     - 通常の購入方式
 2. リザーブドインスタンス
     - 1年もしくは3年の期間契約
+    - リザーブドインスタンスマーケットプレイス
 3. スポットインスタンス
     - オンデマンドよりも低価格で利用できる。実行時間に柔軟性がある場合や中断できる処理に利用する。
 4. スケジュールドリザーブドインスタンス
@@ -230,6 +235,12 @@
   - 希望する容量を調整して手動でスケーリングを行う
 - スケジュールされたスケーリング
   - スケジュールを実施する日時を指定してスケーリングを実行
+
+#### Amazon Machine Image (AMI)
+
+- 1 つまたは複数の EBS スナップショット、または、instance-store-backed AMI、インスタンスのルートボリュームのテンプレート
+- 起動許可
+- インスタンスの起動時にインスタンスにアタッチするボリュームを指定するブロックデバイスマッピング
 
 ### ELB
 
@@ -362,7 +373,7 @@
 ### Snowball
 
 - 物理デバイスを利用して大容量のデータ転送ができる。
-- エクサバイト級のデータ転送にはSnowmobileを使用する。
+- エクサバイト級のデータ転送にはSnow mobileを使用する。
 
 ### AWS Snowball Edge
 
@@ -459,6 +470,11 @@
 
 - リードレプリカを追加することで可用性と耐久性を向上させることが可能であり、かつパフォーマンスも改善します。
 - DB インスタンスの自動バックアップはデフォルトで Amazon S3 に取得される。
+  
+### RDSプロキシ
+
+- アプリケーションとRDSデータベース間の仲介役として機能します。
+- Lambda関数からデータベースに直接流れるすべてのデータベーストラフィックを処理します。
 
 ## Amazon Aurora
 
@@ -604,7 +620,7 @@
 
 #### Amazon Kinesis Data Streams
 
-- ストリームデータ処理に利用するサービス
+- ストリームデータ処理に利用するサービス(ミリ秒単位のリアルタイム処理)
 - 集計するデータ処理を実装することができる
 - Amazon Kinesis Data Firehoseよりも早い
 
@@ -612,20 +628,38 @@
 
 - ストリームデータ処理に利用するサービス(ただし60秒ごとにまとめて処理される)
 - 集計するデータ処理を実装することができる
+- ストリーム配信自体にはデータ保存不可
 - Amazon Kinesis Data Streamsよりも設定が楽
 
 #### Amazon Kinesis Data Analytics
 
 - コンピュータやAmazon Kinesis Data Streams、Amazon Kinesis Data Firehoseから送信されてくるデータをSQLを使って処理できるサービス。
 
-
 #### Kinesis クライアントライブラリ (KCL)
 
 - KDSデータストリームからデータを処理できるカスタムコンシューマアプリケーションを構築できる。
 - 分散コンピューティングに関連する複雑なタスクの多くを処理することで、Kinesis データストリームからデータを消費および処理するためのライブラリを提供します。
 
+### Amazon API Gateway
 
+- Amazon API Gateway は、あらゆる規模の REST、HTTP、および WebSocket API を作成、公開、維持、モニタリング、およびセキュア化するための AWS のサービス
+- AWSまたは他のウェブサービス、AWSクラウドに保存されているデータにアクセスするAPIを作成できる。
+- 使用料プランによりAPIキーにアクセス可能となるクォータ、アクセス頻度となるレート、バーストを設定できる。
+- 使用料プランによりAPIの仕様回数を取得できる。
+- APIキーを使用してAPIクライアントとユーザーを識別して、APIキーを持つ
+- APIキーとLambdaオーソライザー、IAMロール、Amazon Cognitoを一緒に使用してAPIへのアクセスを制御できる。
 
+### VPCエンドポイント
+
+- VPCエンドポイントの種類
+  - ゲートウェイ型エンドポイント
+    - AWSサービスを宛先とするトラフィックのルートテーブルの宛先として指定できるゲートウェイ
+    - DynamoDBとAmazonS3のみに適用可能
+  - プライベートリンク型エンドポイント(インターフェース型)
+    - プライベートIPアドレスを使用してサービスにプライベートにアクセスする。
+    - AWS PrivateLinkはVPCとサービス間のすべてのネットワークトラフィックをAmazonネットワークに制限
+    - RDS、EC2などの多くのAWSサービスに適用可能
+    - AmazonS3に対応、DynamoDBは非対応
 
 <!--stackedit_data:
 eyJoaXN0b3J5IjpbLTIwMzAxMjU2MTgsNjA2NTQ3NDk5LC04Nj
