@@ -28,6 +28,7 @@
 	- [AWSのストレージサービス](#awsのストレージサービス)
 		- [ストレージの種類](#ストレージの種類)
 		- [EFS](#efs)
+			- [マウントターゲット](#マウントターゲット)
 		- [Storage Gateway](#storage-gateway)
 		- [EBS](#ebs)
 			- [EBSのRAID構成](#ebsのraid構成)
@@ -36,6 +37,8 @@
 			- [S3の料金](#s3の料金)
 			- [S3のタイプ](#s3のタイプ)
 			- [S3の特殊な機能](#s3の特殊な機能)
+		- [Amazon S3 Transfer Acceleration](#amazon-s3-transfer-acceleration)
+		- [マルチパートアップロード API](#マルチパートアップロード-api)
 		- [Snowball](#snowball)
 		- [AWS Snowball Edge](#aws-snowball-edge)
 	- [ネットワークサービス](#ネットワークサービス)
@@ -56,7 +59,6 @@
 		- [Cloudwatch](#cloudwatch)
 		- [Trusted Advisor](#trusted-advisor)
 	- [料金と請求](#料金と請求)
-		- [Amazon S3 Transfer Acceleration](#amazon-s3-transfer-acceleration)
 	- [AWS Database Migration Service （DMS）](#aws-database-migration-service-dms)
 	- [AWS Application Discovery Service](#aws-application-discovery-service)
 	- [AWS CloudTrail](#aws-cloudtrail)
@@ -68,7 +70,9 @@
 		- [RDSプロキシ](#rdsプロキシ)
 	- [Amazon Aurora](#amazon-aurora)
 	- [Amazon DynamoDB](#amazon-dynamodb)
+		- [DynamoDBストリーム](#dynamodbストリーム)
 	- [Amazon Redshift](#amazon-redshift)
+		- [Amazon Redshift Spectrum](#amazon-redshift-spectrum)
 	- [Amazon EMR](#amazon-emr)
 	- [AWS Organizations](#aws-organizations)
 	- [メモ](#メモ)
@@ -98,6 +102,12 @@
 			- [Kinesis クライアントライブラリ (KCL)](#kinesis-クライアントライブラリ-kcl)
 		- [Amazon API Gateway](#amazon-api-gateway)
 		- [VPCエンドポイント](#vpcエンドポイント)
+		- [AWS Certificate Manager](#aws-certificate-manager)
+		- [AWS Nitro Enclaves](#aws-nitro-enclaves)
+		- [S3のイベント通知](#s3のイベント通知)
+		- [Amazon EventBridge](#amazon-eventbridge)
+		- [AWS Glue](#aws-glue)
+			- [AWS Glue データカタログ](#aws-glue-データカタログ)
 
 
 ## AWSのセキュリティ
@@ -302,6 +312,12 @@
 
 - EC2インスタンスからLAN上にあるNASとして利用できる共有ファイルストレージとして提供されています
 
+#### マウントターゲット
+
+- VPC 内の Amazon EFS ファイルシステムにアクセスするには、マウントターゲットが必要
+- アベイラビリティーゾーンごとに 1 つのマウントターゲットを作成できる。
+- VPC のアベイラビリティーゾーンに複数のサブネットがある場合、それらのサブネットの 1 つのみにマウントターゲットを作成できる。
+
 ### Storage Gateway
 
 - オンプレアプリケーションとAWSのストレージをシームレスに接続。
@@ -381,6 +397,14 @@
 - Cross-Origin Resource Sharing (CORS)
   - 特定のドメインにロードされたクライアントウェブアプリケーションが異なるドメイン内のリソースと通信する方法を定義する。
 
+### Amazon S3 Transfer Acceleration
+
+- エッジロケーションを利用してクライアントと S3 バケットの間で、長距離にわたるファイル転送を高速、簡単、安全に行える
+
+### マルチパートアップロード API
+
+- 大容量オブジェクトをいくつかに分けてアップロードできる。
+
 ### Snowball
 
 - 物理デバイスを利用して大容量のデータ転送ができる。
@@ -446,9 +470,7 @@
 
 ---
 
-### Amazon S3 Transfer Acceleration
 
-- エッジロケーションを利用してクライアントと S3 バケットの間で、長距離にわたるファイル転送を高速、簡単、安全に行える
 
 ## AWS Database Migration Service （DMS）
 
@@ -497,9 +519,27 @@
 - フルマネージド型の可用性の高いNoSQLサービス
 - セッションデータの処理に向いており、高速で処理を実行できる。
 
+### DynamoDBストリーム
+
+- DynamoDBテーブルへの変更を監視できます。
+- データの保存
+  - 24時間以内の履歴を保存し、24時間経過で消去する。
+  - データ容量はマネージドで自動的に管理
+- データ保存の順番
+  - 操作された順番に応じてシリアライズされる
+  - 特定のハッシュキーに対する変更は正しい順番で保存される
+  - ハッシュキーが異なる場合順番が前後する可能性がある
+
 ## Amazon Redshift
 
 - 高速でシンプルかつ費用対効果の高いデータウェアハウスサービスです。
+- 列指向データの分析に優れている
+- 統計データを使用するので、常に最新の状態に保つ事が大事
+
+### Amazon Redshift Spectrum
+
+- Amazon S3に保存されているデータに対して直接SQLクエリを実行できる機能です。
+- Amazon Redshift本体とは独立して処理が実行されるため、Redshiftに負荷をかけることなくデータ分析ができる。
 
 ## Amazon EMR
 
@@ -671,6 +711,42 @@
     - AWS PrivateLinkはVPCとサービス間のすべてのネットワークトラフィックをAmazonネットワークに制限
     - RDS、EC2などの多くのAWSサービスに適用可能
     - AmazonS3に対応、DynamoDBは非対応
+
+### AWS Certificate Manager
+
+- 効率的な証明書通信の処理の管理が可能となる
+
+### AWS Nitro Enclaves
+
+- 分離された仮想マシンで永続的なストレージを持たず、アクセス不可
+- 暗号化証明
+  - 許可されたコードのみが実行可
+- リソースの柔軟な割当
+  - EC2と同様に処理ができるようにCPU・メモリの組み合わせが多様
+
+### S3のイベント通知
+
+- S3のイベント通知は1つの機能しか受け取ることができない
+- イベント通知をトリガに複数を並行して動かしたいときはSNSの通知を利用する。
+
+### Amazon EventBridge
+
+- イベントを使用してアプリケーションコンポーネントを接続するサーバーレスサービスです。
+- スケーラブルなイベント駆動型アプリケーションを簡単に構築できる。
+- アプリケーションの可用性の問題発生時やリソースの変更時などのシステムイベントに対するアクション処理などを実施できる。
+- 簡単なルールを記述して、注目するイベントと、イベントがルールに一致した場合に自動的に実行するアクションを指定できる。
+- 設定時にイベントソースとイベントタイプを選択できます。
+
+### AWS Glue
+
+- 抽出、変換、ロード (ETL) を行う完全マネージド型のサービスで分析用データの準備とロードを簡単にする。
+
+#### AWS Glue データカタログ
+
+- データの場所、スキーマ、およびランタイムメトリクスへのインデックス
+- Data Catalog の情報はメタデータテーブルとして保存され、各テーブルが 1 つのデータストアを指定する
+- Data Catalogに保持したデータに対してRedShiftで即座に解析処理を実行することが可能。
+
 
 <!--stackedit_data:
 eyJoaXN0b3J5IjpbLTIwMzAxMjU2MTgsNjA2NTQ3NDk5LC04Nj
