@@ -723,6 +723,7 @@ kubernetesと呼ばれる形式のコンテナー仮想化を実現する
 ### Amazon Cognito
 
 - ウェブアプリケーションおよびモバイルアプリにユーザーのサインアップ/サインインおよびアクセスコントロールの機能を追加するサービス
+- Amazon Cognitoの認証機能では、認証時のパスワード設定に加えて、多要素認証（MFA）を追加することが可能
 
 ### Amazon Elastic Container Registry (ECR)
 
@@ -820,6 +821,9 @@ kubernetesと呼ばれる形式のコンテナー仮想化を実現する
 - 認証情報を安全に保存して、利用するための仕組みを提供している
 - ライフサイクル管理機能を通じて、シークレットの管理、取得、ローテーションすることができる。
 
+### Amazon Data Lifecycle Manager
+
+- Amazon EBSのスナップショット取得のライフサイクルポリシーを設定できます
 
 <!--stackedit_data:
 eyJoaXN0b3J5IjpbLTIwMzAxMjU2MTgsNjA2NTQ3NDk5LC04Nj
