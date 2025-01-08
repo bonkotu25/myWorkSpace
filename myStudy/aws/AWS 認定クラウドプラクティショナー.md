@@ -1,119 +1,123 @@
 # AWS 認定クラウドプラクティショナー
 
 - [AWS 認定クラウドプラクティショナー](#aws-認定クラウドプラクティショナー)
-	- [AWSのセキュリティ](#awsのセキュリティ)
-		- [IAM](#iam)
-			- [IAMユーザーグループ](#iamユーザーグループ)
-			- [IAMロール](#iamロール)
-		- [セキュリティグループ](#セキュリティグループ)
-			- [デフォルトのセキュリティグループ](#デフォルトのセキュリティグループ)
-		- [AWS Shield](#aws-shield)
-		- [AWS WAF](#aws-waf)
-		- [inspector](#inspector)
-		- [AWS Artifact](#aws-artifact)
-		- [AWS Key Management Service(KMS)](#aws-key-management-servicekms)
-	- [AWSのテクノロジー](#awsのテクノロジー)
-	- [AWSのコンピューティングサービス](#awsのコンピューティングサービス)
-		- [コンテナ](#コンテナ)
-			- [ECS](#ecs)
-			- [Amazon EKS](#amazon-eks)
-		- [Lightstail](#lightstail)
-		- [Batch](#batch)
-		- [EC2](#ec2)
-			- [EC2のインスタンス](#ec2のインスタンス)
-			- [プレイスメントグループ](#プレイスメントグループ)
-			- [AutoScaling](#autoscaling)
-			- [Amazon Machine Image (AMI)](#amazon-machine-image-ami)
-		- [ELB](#elb)
-			- [スティッキーセッション](#スティッキーセッション)
-		- [Auto Scaling](#auto-scaling)
-		- [Lambda](#lambda)
-	- [AWSのストレージサービス](#awsのストレージサービス)
-		- [ストレージの種類](#ストレージの種類)
-		- [EFS](#efs)
-			- [マウントターゲット](#マウントターゲット)
-		- [Storage Gateway](#storage-gateway)
-		- [EBS](#ebs)
-			- [EBSのRAID構成](#ebsのraid構成)
-		- [S3](#s3)
-			- [S3の整合性モデル](#s3の整合性モデル)
-			- [S3のセキュリティ](#s3のセキュリティ)
-			- [S3の料金](#s3の料金)
-			- [S3のタイプ](#s3のタイプ)
-			- [S3の特殊な機能](#s3の特殊な機能)
-		- [Amazon S3 Transfer Acceleration](#amazon-s3-transfer-acceleration)
-		- [マルチパートアップロード API](#マルチパートアップロード-api)
-		- [Snowball](#snowball)
-		- [AWS Snowball Edge](#aws-snowball-edge)
-	- [ネットワークサービス](#ネットワークサービス)
-		- [VPC](#vpc)
-		- [サブネット](#サブネット)
-	- [インターネットゲートウェイ](#インターネットゲートウェイ)
-		- [インターネットゲートウェイの目的](#インターネットゲートウェイの目的)
-		- [ルートテーブル](#ルートテーブル)
-		- [ネットワークACL](#ネットワークacl)
-		- [外部からEC2インスタンスにアクセスするには](#外部からec2インスタンスにアクセスするには)
-		- [ハイブリッド構成環境](#ハイブリッド構成環境)
-	- [カスタマーゲートウェイ](#カスタマーゲートウェイ)
-	- [CloudFront](#cloudfront)
-	- [データベースサービス](#データベースサービス)
-		- [RDS](#rds)
-		- [DynamoDB](#dynamodb)
-	- [管理サービス](#管理サービス)
-		- [Cloudwatch](#cloudwatch)
-		- [Trusted Advisor](#trusted-advisor)
-	- [料金と請求](#料金と請求)
-	- [AWS Database Migration Service （DMS）](#aws-database-migration-service-dms)
-	- [AWS Application Discovery Service](#aws-application-discovery-service)
-	- [AWS CloudTrail](#aws-cloudtrail)
-	- [Amazon SNS](#amazon-sns)
-	- [Amazon SES](#amazon-ses)
-	- [Amazon SQS](#amazon-sqs)
-	- [Amazon MQ](#amazon-mq)
-	- [Amazon RDS](#amazon-rds)
-		- [RDSプロキシ](#rdsプロキシ)
-	- [Amazon Aurora](#amazon-aurora)
-	- [Amazon DynamoDB](#amazon-dynamodb)
-		- [DynamoDBストリーム](#dynamodbストリーム)
-	- [Amazon Redshift](#amazon-redshift)
-		- [Amazon Redshift Spectrum](#amazon-redshift-spectrum)
-	- [Amazon EMR](#amazon-emr)
-	- [AWS Organizations](#aws-organizations)
-	- [メモ](#メモ)
-		- [覚えておくべき移行関連のAWSサービス](#覚えておくべき移行関連のawsサービス)
-		- [比較](#比較)
-		- [AWSでセキュリティを向上させる](#awsでセキュリティを向上させる)
-		- [AWSの可用性について](#awsの可用性について)
-		- [ACLとセキュリティグループの違い](#aclとセキュリティグループの違い)
-		- [AWSのモニタリング系サービス](#awsのモニタリング系サービス)
-		- [AWS SDK](#aws-sdk)
-		- [AWS プロフェッショナルサービス](#aws-プロフェッショナルサービス)
-		- [Route53](#route53)
-			- [位置情報ルーティング](#位置情報ルーティング)
-		- [AWS OpsWorks](#aws-opsworks)
-		- [AWS Elastic Beanstalk](#aws-elastic-beanstalk)
-		- [AWS CloudFormation](#aws-cloudformation)
-		- [Elasticache](#elasticache)
-		- [コード関連のサービス](#コード関連のサービス)
-		- [Amazon Neptune](#amazon-neptune)
-		- [AWS Security Token Service (AWS STS)](#aws-security-token-service-aws-sts)
-		- [Amazon Cognito](#amazon-cognito)
-		- [Amazon Elastic Container Registry (ECR)](#amazon-elastic-container-registry-ecr)
-		- [Amazon Kinesis](#amazon-kinesis)
-			- [Amazon Kinesis Data Streams](#amazon-kinesis-data-streams)
-			- [Amazon Kinesis Data Firehose](#amazon-kinesis-data-firehose)
-			- [Amazon Kinesis Data Analytics](#amazon-kinesis-data-analytics)
-			- [Kinesis クライアントライブラリ (KCL)](#kinesis-クライアントライブラリ-kcl)
-		- [Amazon API Gateway](#amazon-api-gateway)
-		- [VPCエンドポイント](#vpcエンドポイント)
-		- [AWS Certificate Manager](#aws-certificate-manager)
-		- [AWS Nitro Enclaves](#aws-nitro-enclaves)
-		- [S3のイベント通知](#s3のイベント通知)
-		- [Amazon EventBridge](#amazon-eventbridge)
-		- [AWS Glue](#aws-glue)
-			- [AWS Glue データカタログ](#aws-glue-データカタログ)
-		- [AWS ParallelCluster](#aws-parallelcluster)
-		- [AWS Secrets Manager](#aws-secrets-manager)
+  - [AWSのセキュリティ](#awsのセキュリティ)
+    - [IAM](#iam)
+      - [IAMユーザーグループ](#iamユーザーグループ)
+      - [IAMロール](#iamロール)
+    - [セキュリティグループ](#セキュリティグループ)
+      - [デフォルトのセキュリティグループ](#デフォルトのセキュリティグループ)
+    - [AWS Shield](#aws-shield)
+    - [AWS WAF](#aws-waf)
+    - [inspector](#inspector)
+    - [AWS Artifact](#aws-artifact)
+    - [AWS Key Management Service(KMS)](#aws-key-management-servicekms)
+  - [AWSのテクノロジー](#awsのテクノロジー)
+  - [AWSのコンピューティングサービス](#awsのコンピューティングサービス)
+    - [コンテナ](#コンテナ)
+      - [ECS](#ecs)
+      - [Amazon EKS](#amazon-eks)
+    - [Lightstail](#lightstail)
+    - [Batch](#batch)
+    - [EC2](#ec2)
+      - [EC2のインスタンス](#ec2のインスタンス)
+      - [プレイスメントグループ](#プレイスメントグループ)
+      - [AutoScaling](#autoscaling)
+      - [Amazon Machine Image (AMI)](#amazon-machine-image-ami)
+    - [ELB](#elb)
+      - [スティッキーセッション](#スティッキーセッション)
+    - [Auto Scaling](#auto-scaling)
+    - [Lambda](#lambda)
+  - [AWSのストレージサービス](#awsのストレージサービス)
+    - [ストレージの種類](#ストレージの種類)
+    - [EFS](#efs)
+      - [マウントターゲット](#マウントターゲット)
+    - [Storage Gateway](#storage-gateway)
+    - [EBS](#ebs)
+      - [EBSのRAID構成](#ebsのraid構成)
+    - [S3](#s3)
+      - [S3の容量制限](#s3の容量制限)
+      - [S3の整合性モデル](#s3の整合性モデル)
+      - [S3のセキュリティ](#s3のセキュリティ)
+      - [S3の料金について](#s3の料金について)
+      - [S3のタイプ](#s3のタイプ)
+      - [ライフサイクル管理](#ライフサイクル管理)
+      - [S3の特殊な機能](#s3の特殊な機能)
+    - [S3のアクセス管理](#s3のアクセス管理)
+    - [Amazon S3 Transfer Acceleration](#amazon-s3-transfer-acceleration)
+    - [マルチパートアップロード API](#マルチパートアップロード-api)
+    - [Snowball](#snowball)
+    - [AWS Snowball Edge](#aws-snowball-edge)
+  - [ネットワークサービス](#ネットワークサービス)
+    - [VPC](#vpc)
+    - [サブネット](#サブネット)
+  - [インターネットゲートウェイ](#インターネットゲートウェイ)
+    - [インターネットゲートウェイの目的](#インターネットゲートウェイの目的)
+    - [ルートテーブル](#ルートテーブル)
+    - [ネットワークACL](#ネットワークacl)
+    - [外部からEC2インスタンスにアクセスするには](#外部からec2インスタンスにアクセスするには)
+    - [ハイブリッド構成環境](#ハイブリッド構成環境)
+  - [カスタマーゲートウェイ](#カスタマーゲートウェイ)
+  - [CloudFront](#cloudfront)
+  - [データベースサービス](#データベースサービス)
+    - [RDS](#rds)
+    - [DynamoDB](#dynamodb)
+  - [管理サービス](#管理サービス)
+    - [Cloudwatch](#cloudwatch)
+    - [Trusted Advisor](#trusted-advisor)
+  - [料金と請求](#料金と請求)
+  - [AWS Database Migration Service （DMS）](#aws-database-migration-service-dms)
+  - [AWS Application Discovery Service](#aws-application-discovery-service)
+  - [AWS CloudTrail](#aws-cloudtrail)
+  - [Amazon SNS](#amazon-sns)
+  - [Amazon SES](#amazon-ses)
+  - [Amazon SQS](#amazon-sqs)
+  - [Amazon MQ](#amazon-mq)
+  - [Amazon RDS](#amazon-rds)
+    - [RDSプロキシ](#rdsプロキシ)
+  - [Amazon Aurora](#amazon-aurora)
+  - [Amazon DynamoDB](#amazon-dynamodb)
+    - [DynamoDBストリーム](#dynamodbストリーム)
+  - [Amazon Redshift](#amazon-redshift)
+    - [Amazon Redshift Spectrum](#amazon-redshift-spectrum)
+  - [Amazon EMR](#amazon-emr)
+  - [AWS Organizations](#aws-organizations)
+  - [メモ](#メモ)
+    - [覚えておくべき移行関連のAWSサービス](#覚えておくべき移行関連のawsサービス)
+    - [比較](#比較)
+    - [AWSでセキュリティを向上させる](#awsでセキュリティを向上させる)
+    - [AWSの可用性について](#awsの可用性について)
+    - [ACLとセキュリティグループの違い](#aclとセキュリティグループの違い)
+    - [AWSのモニタリング系サービス](#awsのモニタリング系サービス)
+    - [AWS SDK](#aws-sdk)
+    - [AWS プロフェッショナルサービス](#aws-プロフェッショナルサービス)
+    - [Route53](#route53)
+      - [位置情報ルーティング](#位置情報ルーティング)
+    - [AWS OpsWorks](#aws-opsworks)
+    - [AWS Elastic Beanstalk](#aws-elastic-beanstalk)
+    - [AWS CloudFormation](#aws-cloudformation)
+    - [Elasticache](#elasticache)
+    - [コード関連のサービス](#コード関連のサービス)
+    - [Amazon Neptune](#amazon-neptune)
+    - [AWS Security Token Service (AWS STS)](#aws-security-token-service-aws-sts)
+    - [Amazon Cognito](#amazon-cognito)
+    - [Amazon Elastic Container Registry (ECR)](#amazon-elastic-container-registry-ecr)
+    - [Amazon Kinesis](#amazon-kinesis)
+      - [Amazon Kinesis Data Streams](#amazon-kinesis-data-streams)
+      - [Amazon Kinesis Data Firehose](#amazon-kinesis-data-firehose)
+      - [Amazon Kinesis Data Analytics](#amazon-kinesis-data-analytics)
+      - [Kinesis クライアントライブラリ (KCL)](#kinesis-クライアントライブラリ-kcl)
+    - [Amazon API Gateway](#amazon-api-gateway)
+    - [VPCエンドポイント](#vpcエンドポイント)
+    - [AWS Certificate Manager](#aws-certificate-manager)
+    - [AWS Nitro Enclaves](#aws-nitro-enclaves)
+    - [S3のイベント通知](#s3のイベント通知)
+    - [Amazon EventBridge](#amazon-eventbridge)
+    - [AWS Glue](#aws-glue)
+      - [AWS Glue データカタログ](#aws-glue-データカタログ)
+    - [AWS ParallelCluster](#aws-parallelcluster)
+    - [AWS Secrets Manager](#aws-secrets-manager)
+    - [Amazon Data Lifecycle Manager](#amazon-data-lifecycle-manager)
 
 
 ## AWSのセキュリティ
@@ -380,6 +384,15 @@ kubernetesと呼ばれる形式のコンテナー仮想化を実現する
 - 世界中どこからでもアクセスできる。
 - URL経由でアクセスが可能
 
+#### S3の容量制限
+
+- バケット
+  - データ保存料歯無制限で自動でストレージが拡張される
+- オブジェクト
+  - バケット内に保存可能なオブジェクトは無制限
+- 保存可能なオブジェクトサイズの制限
+  - 0KB～5TBまで保存可能
+
 #### S3の整合性モデル
 
 昔は結果整合性モデルを利用していたが、現在は強い整合性モデルとなっており反映誤差が発生しない。
@@ -401,11 +414,25 @@ kubernetesと呼ばれる形式のコンテナー仮想化を実現する
 - HTTPSでアクセスできる
 - 保存データの暗号化は複数の方法から選択できる。
 
-#### S3の料金
+#### S3の料金について
 
 - ストレージ料金はストレージクラスによりコスト効率を高めることができる
 - ライフサイクルポリシーによりストレージクラスの変更を自動化できる
 - リージョン外へのアウト通信のみにデータ転送料金が発生する
+- ストレージコストを比較すると最も値段が安いのがS3及びGlacier
+
+- リージョン
+  - リージョンごとに価格が異なる
+- データ容量
+  - データ量と保存期間に応じて時間がかかる
+  - S3 Intelligent Tierring,IAストレージは30日分
+- リクエストとデータ取得
+  - データに対するリクエストに応じて料金がかかる
+  - データを取得した量に応じて料金がかかる
+- データ転送
+  - データ転送イン；無料
+  - インターネットへのデータ転送アウト(GB単位)
+  - S3からAWS内でのデータ転送アウト(GB単位)
 
 #### S3のタイプ
 
@@ -414,21 +441,38 @@ kubernetesと呼ばれる形式のコンテナー仮想化を実現する
   - 頻繁に利用するデータの格納に向いている  
 - STANDARD -IA
   - IA：Infrequent Access （低頻度アクセス）
+  - 低頻度アクセスデータ用ストレージ
+  - データの取得は早い
 - ONEZONE-IA
   - 低頻度アクセスだがマルチAZ分散されていない
   - 重要ではないデータ向け。その分安い
 - S3 Intelligent Tiering
   - 低頻度と高頻度の2つを持っている。ファイルは自動で低頻度に移動する。
   - 利用頻度がわからないデータ向け
-- S3 Glacier Flexible Retrieval
+- S3 Glacier Flexible Retrieval(通常のGlacier)
   - 1年数回のアクセス向け
   - データ検索で3~5時間
   - 迅速取り出しで2~5分で取り出し可能
+  - 一括検索は5~12時間で無料でデータ取り出しが可能
+  - ライフサイクル管理で利用指定できる
+  - ボールトロック機能によりデータを保持・保護
 - S3 Glacier Instant Retrieval
   - アクセスがほとんどなく、ミリ秒単位で取り出しが必要でデータ向け
   - S3 standardと同じパフォーマンスのデータ取り出し。
 - Amazon Glacier DEEP Archive
   - 最安のストレージ
+  - 7~10年以上保持される長時間使用されるもののアクセス頻度が低いデータ向け。
+  - 標準取り出しは12時間以内
+  - 大容量取り出しは48時間以内にデータを取得
+  - ライフサイクル管理で利用指定できる
+
+#### ライフサイクル管理
+
+- バケット全体やPrefixに設定
+- オブジェクト更新日を基準にして日単位で指定しｍ毎日0時(UTC)にキュー実行
+- 最大1000ルール
+- IAに移動できるのは128KB以上のオブジェクト
+- MFA Deleteが友好だと設定不可
 
 #### S3の特殊な機能
 
@@ -436,6 +480,31 @@ kubernetesと呼ばれる形式のコンテナー仮想化を実現する
 - 事前署名付き URL
 - Cross-Origin Resource Sharing (CORS)
   - 特定のドメインにロードされたクライアントウェブアプリケーションが異なるドメイン内のリソースと通信する方法を定義する。
+- S3 MFA Delete
+  - バージョニング機能のオプション指定した削除操作のみMFA認証を要求する。
+- オブジェクトロック
+  - オブジェクトの削除・更新を一定時間ブロックする機能。Write Once Read Manyモデルを適用して最初のアップロード後は読み取りしか許可されない。
+  - バージョンの保護
+    - 保持期間
+      - 一定期間のオブジェクトバージョンの上書きと削除を防ぐ
+    - リーガルホールド
+      - オブジェクトが削除サれるまでオブジェクトバージョンの上書きと削除を防ぐ
+  - モード
+    - ガバナンスモード
+      - 特別なアクセス許可がないユーザーはオブジェクトのバージョンの上書きや削除ができない
+    - コンプライアンスモード
+      - ユートユーザー含めてすべてのユーザーがオブジェクトのバージョンの上書きや削除ができない
+
+### S3のアクセス管理
+
+- IAMユーザーポリシー
+  - 内部のIAMユーザーやawsリソースへの権限管理
+- バケットポリシー
+  - 外部のユーザー含めたアクセス管理
+- ACL
+  - オブジェクトに個別に設定可能
+- 事前署名付きURL
+  - インターネット上の第三者にURLを閲覧させる。
 
 ### Amazon S3 Transfer Acceleration
 
@@ -444,6 +513,8 @@ kubernetesと呼ばれる形式のコンテナー仮想化を実現する
 ### マルチパートアップロード API
 
 - 大容量オブジェクトをいくつかに分けてアップロードできる。
+
+
 
 ### Snowball
 
